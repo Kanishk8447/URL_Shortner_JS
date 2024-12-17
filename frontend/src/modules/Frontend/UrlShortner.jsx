@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const UrlShortener = () => {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   // Updated handleShortenUrl function
   const handleShortenUrl = async () => {
@@ -25,6 +26,15 @@ const UrlShortener = () => {
     }
   };
 
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(shortUrl)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      })
+      .catch(err => console.error('Failed to copy: ', err));
+  };
+
   return (
     <div className="container text-center mt-5 bg-white p-5 rounded">
       <h2 className="text-2xl font-bold text-black">URL Shortener</h2>
@@ -40,7 +50,7 @@ const UrlShortener = () => {
       </div>
       <button
         onClick={handleShortenUrl}
-        className="btn-primary px-4 py-2 "
+        className="btn btn-primary px-4 py-2 "
       >
         Shorten URL
       </button>
@@ -56,6 +66,13 @@ const UrlShortener = () => {
             >
               {shortUrl}
             </a>
+            <button
+              className="btn btn-primary"
+              onClick={handleCopyClick}
+              type="button"
+            >
+              {isCopied ? 'Copied!' : 'Copy'}
+            </button>
           </p>
         </div>
       )}
