@@ -14,7 +14,6 @@ const UrlShortener = () => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (data.shortUrl) {
         setShortUrl(data.shortUrl);
@@ -48,7 +47,7 @@ const UrlShortener = () => {
       {shortUrl && (
         <div className="mt-4">
           <p className="text-lg">
-            Short URL:{" "}
+            Short URL:
             <a
               href={shortUrl}
               target="_blank"
